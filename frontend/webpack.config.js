@@ -1,7 +1,9 @@
+const path = require('path');
+
 module.exports = {
   entry: './src/app.js',
   output: {
     filename: 'bundle.js',
-    path: 'E:\\dev\\drakon_web\\frontend\\dist'
+   path: path.resolve(__dirname, 'dist'),
   }
 }
