@@ -5,4 +5,4 @@ glob:*.log
 glob:www/static/bundles/*.map
 frontend/node_modules
 frontend/temp
-
+frontend/bin
