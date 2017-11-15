@@ -71,7 +71,23 @@
 
 
 console.log('Hello webpack 2');
-var a = 'a';
+var welcome = __webpack_require__(1);
+welcome.welcome('app.js');
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.welcome = welcome;
+function welcome(message) {
+    alert('Welcome ' + message);
+};
 
 /***/ })
 /******/ ]);
