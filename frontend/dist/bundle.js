@@ -65,10 +65,13 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-let a = 0;
-console.log('Hello webpack 2')
+"use strict";
+
+
+console.log('Hello webpack 2');
+var a = 'a';
 
 /***/ })
 /******/ ]);

@@ -6,3 +6,4 @@ glob:www/static/bundles/*.map
 frontend/node_modules
 frontend/temp
 frontend/bin
+frontend/dist
