@@ -1,2 +1,8 @@
-console.log('Hello webpack 2')
-let a  = 'a'
+
+import {main} from './main.js';
+
+
+window.onload = function () {	  
+	main(document.getElementById('graphContainer'));
+}
+

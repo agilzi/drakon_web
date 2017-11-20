@@ -1,101 +1,16 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _main = __webpack_require__(1);
-
-window.onload = function () {
-	(0, _main.main)(document.getElementById('graphContainer'));
-};
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.main = main;
 // Program starts here. Creates a sample graph in the
 // DOM node with the specified ID. This function is invoked
 // from the onLoad event handler of the document (see below).
-function main(container) {
+export function main(container)
+{
 	// Checks if the browser is supported
-	if (!mxClient.isBrowserSupported()) {
+	if (!mxClient.isBrowserSupported())
+	{
 		// Displays an error message if the browser is not supported.
 		mxUtils.error('Browser is not supported!', 200, false);
-	} else {
+	}
+	else
+	{
 		// Must be disabled to compute positions inside the DOM tree of the cell label.
 		mxGraphView.prototype.optimizeVmlReflows = false;
 
@@ -106,7 +21,7 @@ function main(container) {
 		// to any given table row. This is because the edge connects to the outside of the row and
 		// is aligned to the grid during the preview.
 		mxConnectionHandler.prototype.movePreviewAway = false;
-
+		
 		// Disables foreignObjects
 		mxClient.NO_FO = true;
 
@@ -115,51 +30,58 @@ function main(container) {
 
 		// Enables connect icons to appear on top of HTML
 		mxConnectionHandler.prototype.moveIconFront = true;
-
+		
 		// Defines an icon for creating new connections in the connection handler.
 		// This will automatically disable the highlighting of the source vertex.
 		mxConnectionHandler.prototype.connectImage = new mxImage('images/connector.gif', 16, 16);
-
+		
 		// Support for certain CSS styles in quirks mode
-		if (mxClient.IS_QUIRKS) {
+		if (mxClient.IS_QUIRKS)
+		{
 			new mxDivResizer(container);
 		}
-
+		
 		// Disables the context menu
 		mxEvent.disableContextMenu(container);
 
 		// Overrides target perimeter point for connection previews
-		mxConnectionHandler.prototype.getTargetPerimeterPoint = function (state, me) {
+		mxConnectionHandler.prototype.getTargetPerimeterPoint = function(state, me)
+		{
 			// Determines the y-coordinate of the target perimeter point
 			// by using the currentRowNode assigned in updateRow
 			var y = me.getY();
 
-			if (this.currentRowNode != null) {
+			if (this.currentRowNode != null)
+			{
 				y = getRowY(state, this.currentRowNode);
 			}
 
 			// Checks on which side of the terminal to leave
 			var x = state.x;
-
-			if (this.previous.getCenterX() > state.getCenterX()) {
+			
+			if (this.previous.getCenterX() > state.getCenterX())
+			{
 				x += state.width;
 			}
-
-			return new mxPoint(x, y);
+			
+			return new mxPoint(x, y); 
 		};
 
 		// Overrides source perimeter point for connection previews
-		mxConnectionHandler.prototype.getSourcePerimeterPoint = function (state, next, me) {
+		mxConnectionHandler.prototype.getSourcePerimeterPoint = function(state, next, me)
+		{
 			var y = me.getY();
 
-			if (this.sourceRowNode != null) {
+			if (this.sourceRowNode != null)
+			{
 				y = getRowY(state, this.sourceRowNode);
 			}
 
 			// Checks on which side of the terminal to leave
 			var x = state.x;
-
-			if (next.x > state.getCenterX()) {
+			
+			if (next.x > state.getCenterX())
+			{
 				x += state.width;
 			}
 
@@ -167,16 +89,18 @@ function main(container) {
 		};
 
 		// Disables connections to invalid rows
-		mxConnectionHandler.prototype.isValidTarget = function (cell) {
+		mxConnectionHandler.prototype.isValidTarget = function(cell)
+		{
 			return this.currentRowNode != null;
 		};
-
+		
 		// Creates the graph inside the given container
 		var graph = new mxGraph(container);
 
 		// Uses the entity perimeter (below) as default
 		graph.stylesheet.getDefaultVertexStyle()[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_TOP;
-		graph.stylesheet.getDefaultVertexStyle()[mxConstants.STYLE_PERIMETER] = mxPerimeter.EntityPerimeter;
+		graph.stylesheet.getDefaultVertexStyle()[mxConstants.STYLE_PERIMETER] =
+			mxPerimeter.EntityPerimeter;
 		graph.stylesheet.getDefaultVertexStyle()[mxConstants.STYLE_SHADOW] = true;
 		graph.stylesheet.getDefaultVertexStyle()[mxConstants.STYLE_FILLCOLOR] = '#DDEAFF';
 		graph.stylesheet.getDefaultVertexStyle()[mxConstants.STYLE_GRADIENTCOLOR] = '#A9C4EB';
@@ -187,7 +111,8 @@ function main(container) {
 		graph.stylesheet.getDefaultVertexStyle()[mxConstants.STYLE_OVERFLOW] = 'fill';
 
 		// Uses the entity edge style as default
-		graph.stylesheet.getDefaultEdgeStyle()[mxConstants.STYLE_EDGE] = mxEdgeStyle.EntityRelation;
+		graph.stylesheet.getDefaultEdgeStyle()[mxConstants.STYLE_EDGE] =
+			mxEdgeStyle.EntityRelation;
 		graph.stylesheet.getDefaultEdgeStyle()[mxConstants.STYLE_STROKECOLOR] = 'black';
 		graph.stylesheet.getDefaultEdgeStyle()[mxConstants.STYLE_FONTCOLOR] = 'black';
 
@@ -202,64 +127,74 @@ function main(container) {
 		graph.centerZoom = false;
 
 		// Override folding to allow for tables
-		graph.isCellFoldable = function (cell, collapse) {
+		graph.isCellFoldable = function(cell, collapse)
+		{
 			return this.getModel().isVertex(cell);
 		};
 
 		// Overrides connectable state
-		graph.isCellConnectable = function (cell) {
+		graph.isCellConnectable = function(cell)
+		{
 			return !this.isCellCollapsed(cell);
 		};
-
+		
 		// Enables HTML markup in all labels
 		graph.setHtmlLabels(true);
 
 		// Scroll events should not start moving the vertex
-		graph.cellRenderer.isLabelEvent = function (state, evt) {
+		graph.cellRenderer.isLabelEvent = function(state, evt)
+		{
 			var source = mxEvent.getSource(evt);
 
-			return state.text != null && source != state.text.node && source != state.text.node.getElementsByTagName('div')[0];
+			return state.text != null && source != state.text.node &&
+				source != state.text.node.getElementsByTagName('div')[0];
 		};
 
 		// Adds scrollbars to the outermost div and keeps the
 		// DIV position and size the same as the vertex
 		var oldRedrawLabel = graph.cellRenderer.redrawLabel;
-		graph.cellRenderer.redrawLabel = function (state) {
+		graph.cellRenderer.redrawLabel = function(state)
+		{
 			oldRedrawLabel.apply(this, arguments); // "supercall"
 			var graph = state.view.graph;
 			var model = graph.model;
 
-			if (model.isVertex(state.cell) && state.text != null) {
+			if (model.isVertex(state.cell) && state.text != null)
+			{
 				// Scrollbars are on the div
 				var s = graph.view.scale;
 				state.text.node.style.overflow = 'hidden';
 				var div = state.text.node.getElementsByTagName('div')[0];
-
-				if (div != null) {
+				
+				if (div != null)
+				{
 					// Adds height of the title table cell
 					var oh = 26;
 
 					div.style.display = 'block';
 					div.style.top = oh + 'px';
 					div.style.width = Math.max(1, Math.round(state.width / s)) + 'px';
-					div.style.height = Math.max(1, Math.round(state.height / s - oh)) + 'px';
-
+					div.style.height = Math.max(1, Math.round((state.height / s) - oh)) + 'px';
+					
 					// Installs the handler for updating connected edges
-					if (div.scrollHandler == null) {
+					if (div.scrollHandler == null)
+					{
 						div.scrollHandler = true;
-
-						var updateEdges = mxUtils.bind(this, function () {
+						
+						var updateEdges = mxUtils.bind(this, function()
+						{
 							var edgeCount = model.getEdgeCount(state.cell);
-
+							
 							// Only updates edges to avoid update in DOM order
 							// for text label which would reset the scrollbar
-							for (var i = 0; i < edgeCount; i++) {
+							for (var i = 0; i < edgeCount; i++)
+							{
 								var edge = model.getEdgeAt(state.cell, i);
 								graph.view.invalidate(edge, true, false);
 								graph.view.validate(edge);
 							}
 						});
-
+						
 						mxEvent.addListener(div, 'scroll', updateEdges);
 						mxEvent.addListener(div, 'mouseup', updateEdges);
 					}
@@ -269,74 +204,92 @@ function main(container) {
 
 		// Adds a new function to update the currentRow based on the given event
 		// and return the DOM node for that row
-		graph.connectionHandler.updateRow = function (target) {
-			while (target != null && target.nodeName != 'TR') {
+		graph.connectionHandler.updateRow = function(target)
+		{
+			while (target != null && target.nodeName != 'TR')
+			{
 				target = target.parentNode;
 			}
 
 			this.currentRow = null;
 
 			// Checks if we're dealing with a row in the correct table
-			if (target != null && target.parentNode.parentNode.className == 'erd') {
+			if (target != null && target.parentNode.parentNode.className == 'erd')
+			{
 				// Stores the current row number in a property so that it can
 				// be retrieved to create the preview and final edge
 				var rowNumber = 0;
 				var current = target.parentNode.firstChild;
 
-				while (target != current && current != null) {
+				while (target != current && current != null)
+				{
 					current = current.nextSibling;
 					rowNumber++;
 				}
 
 				this.currentRow = rowNumber + 1;
-			} else {
+			}
+			else
+			{
 				target = null;
 			}
-
+			
 			return target;
 		};
-
+		
 		// Adds placement of the connect icon based on the mouse event target (row)
-		graph.connectionHandler.updateIcons = function (state, icons, me) {
+		graph.connectionHandler.updateIcons = function(state, icons, me)
+		{
 			var target = me.getSource();
 			target = this.updateRow(target);
-
-			if (target != null && this.currentRow != null) {
+			
+			if (target != null && this.currentRow != null)
+			{
 				var div = target.parentNode.parentNode.parentNode;
 				var s = state.view.scale;
 
 				icons[0].node.style.visibility = 'visible';
-				icons[0].bounds.x = state.x + target.offsetLeft + Math.min(state.width, target.offsetWidth * s) - this.icons[0].bounds.width - 2;
-				icons[0].bounds.y = state.y - this.icons[0].bounds.height / 2 + (target.offsetTop + target.offsetHeight / 2 - div.scrollTop + div.offsetTop) * s;
+				icons[0].bounds.x = state.x + target.offsetLeft + Math.min(state.width,
+					target.offsetWidth * s) - this.icons[0].bounds.width - 2;
+				icons[0].bounds.y = state.y - this.icons[0].bounds.height / 2 + (target.offsetTop +
+						target.offsetHeight / 2 - div.scrollTop + div.offsetTop) * s;
 				icons[0].redraw();
 
 				this.currentRowNode = target;
-			} else {
+			}
+			else
+			{
 				icons[0].node.style.visibility = 'hidden';
 			}
 		};
 
 		// Updates the targetRow in the preview edge State
 		var oldMouseMove = graph.connectionHandler.mouseMove;
-		graph.connectionHandler.mouseMove = function (sender, me) {
-			if (this.edgeState != null) {
+		graph.connectionHandler.mouseMove = function(sender, me)
+		{
+			if (this.edgeState != null)
+			{
 				this.currentRowNode = this.updateRow(me.getSource());
-
-				if (this.currentRow != null) {
+				
+				if (this.currentRow != null)
+				{
 					this.edgeState.cell.value.setAttribute('targetRow', this.currentRow);
-				} else {
+				}
+				else
+				{
 					this.edgeState.cell.value.setAttribute('targetRow', '0');
 				}
-
+				
 				// Destroys icon to prevent event redirection via image in IE
 				this.destroyIcons();
 			}
-
+			
 			oldMouseMove.apply(this, arguments);
 		};
 
 		// Creates the edge state that may be used for preview
-		graph.connectionHandler.createEdgeState = function (me) {
+		graph.connectionHandler.createEdgeState = function(me)
+		{
 			var relation = doc.createElement('Relation');
 			relation.setAttribute('sourceRow', this.currentRow || '0');
 			relation.setAttribute('targetRow', '0');
@@ -347,20 +300,42 @@ function main(container) {
 
 			// Stores the source row in the handler
 			this.sourceRowNode = this.currentRowNode;
-
+			
 			return state;
 		};
 
 		// Overrides getLabel to return empty labels for edges and
 		// short markup for collapsed cells.
-		graph.getLabel = function (cell) {
-			if (this.getModel().isVertex(cell)) {
-				if (this.isCellCollapsed(cell)) {
-					return '<table style="overflow:hidden;" width="100%" height="100%" border="1" cellpadding="4" class="title" style="height:100%;">' + '<tr><th>Customers</th></tr>' + '</table>';
-				} else {
-					return '<table style="overflow:hidden;" width="100%" border="1" cellpadding="4" class="title">' + '<tr><th colspan="2">Customers</th></tr>' + '</table>' + '<div style="overflow:auto;cursor:default;">' + '<table width="100%" height="100%" border="1" cellpadding="4" class="erd">' + '<tr><td>' + '<img align="center" src="images/key.png"/>' + '<img align="center" src="images/plus.png"/>' + '</td><td>' + '<u>customerId</u></td></tr><tr><td></td><td>number</td></tr>' + '<tr><td></td><td>firstName</td></tr><tr><td></td><td>lastName</td></tr>' + '<tr><td></td><td>streetAddress</td></tr><tr><td></td><td>city</td></tr>' + '<tr><td></td><td>state</td></tr><tr><td></td><td>zip</td></tr>' + '</table></div>';
+		graph.getLabel = function(cell)
+		{
+			if (this.getModel().isVertex(cell))
+			{
+				if (this.isCellCollapsed(cell))
+				{
+					return '<table style="overflow:hidden;" width="100%" height="100%" border="1" cellpadding="4" class="title" style="height:100%;">' +
+						'<tr><th>Customers</th></tr>' +
+						'</table>';
 				}
-			} else {
+				else
+				{
+					return '<table style="overflow:hidden;" width="100%" border="1" cellpadding="4" class="title">' +
+						'<tr><th colspan="2">Customers</th></tr>' +
+						'</table>'+
+						'<div style="overflow:auto;cursor:default;">'+
+						'<table width="100%" height="100%" border="1" cellpadding="4" class="erd">' +
+						'<tr><td>' +
+						'<img align="center" src="images/key.png"/>' +
+						'<img align="center" src="images/plus.png"/>' +
+						'</td><td>' +
+						'<u>customerId</u></td></tr><tr><td></td><td>number</td></tr>' +
+						'<tr><td></td><td>firstName</td></tr><tr><td></td><td>lastName</td></tr>' +
+						'<tr><td></td><td>streetAddress</td></tr><tr><td></td><td>city</td></tr>' +
+						'<tr><td></td><td>state</td></tr><tr><td></td><td>zip</td></tr>' +
+						'</table></div>';
+				}
+			}
+			else
+			{
 				return '';
 			}
 		};
@@ -373,21 +348,22 @@ function main(container) {
 		var relation = doc.createElement('Relation');
 		relation.setAttribute('sourceRow', '4');
 		relation.setAttribute('targetRow', '6');
-
+		
 		// Enables rubberband selection
 		new mxRubberband(graph);
 
 		// Enables key handling (eg. escape)
 		new mxKeyHandler(graph);
-
+		
 		// Gets the default parent for inserting new cells. This
 		// is normally the first child of the root (ie. layer 0).
 		var parent = graph.getDefaultParent();
-
+						
 		// Adds cells to the model in a single step
 		var width = 160;
 		graph.getModel().beginUpdate();
-		try {
+		try
+		{
 			var v1 = graph.insertVertex(parent, null, '', 20, 20, width, 0);
 			var v2 = graph.insertVertex(parent, null, '', 400, 150, width, 0);
 			var e1 = graph.insertEdge(parent, null, relation, v1, v2);
@@ -403,50 +379,59 @@ function main(container) {
 			graph.updateCellSize(v2);
 			v2.geometry.width = width;
 			v2.geometry.alternateBounds = new mxRectangle(0, 0, width, 27);
-		} finally {
+		}
+		finally
+		{
 			// Updates the display
 			graph.getModel().endUpdate();
 		}
-
-		var btn1 = mxUtils.button('+', function () {
+		
+		var btn1 = mxUtils.button('+', function()
+		{
 			graph.zoomIn();
 		});
 		btn1.style.marginLeft = '20px';
-
+		
 		document.body.appendChild(btn1);
-		document.body.appendChild(mxUtils.button('-', function () {
+		document.body.appendChild(mxUtils.button('-', function()
+		{
 			graph.zoomOut();
 		}));
 	}
 };
 
 // Implements a special perimeter for table rows inside the table markup
-mxGraphView.prototype.updateFloatingTerminalPoint = function (edge, start, end, source) {
+mxGraphView.prototype.updateFloatingTerminalPoint = function(edge, start, end, source)
+{
 	var next = this.getNextPoint(edge, end, source);
 	var div = start.text.node.getElementsByTagName('div')[0];
-
+	
 	var x = start.x;
 	var y = start.getCenterY();
 
 	// Checks on which side of the terminal to leave
-	if (next.x > x + start.width / 2) {
+	if (next.x > x + start.width / 2)
+	{
 		x += start.width;
 	}
 
-	if (div != null) {
+	if (div != null)
+	{
 		y = start.getCenterY() - div.scrollTop;
-
-		if (mxUtils.isNode(edge.cell.value) && !this.graph.isCellCollapsed(start.cell)) {
-			var attr = source ? 'sourceRow' : 'targetRow';
+		
+		if (mxUtils.isNode(edge.cell.value) && !this.graph.isCellCollapsed(start.cell))
+		{
+			var attr = (source) ? 'sourceRow' : 'targetRow';
 			var row = parseInt(edge.cell.value.getAttribute(attr));
-
+	
 			// HTML labels contain an outer table which is built-in
 			var table = div.getElementsByTagName('table')[0];
 			var trs = table.getElementsByTagName('tr');
 			var tr = trs[Math.min(trs.length - 1, row - 1)];
-
+			
 			// Gets vertical center of source or target row
-			if (tr != null) {
+			if (tr != null)
+			{
 				y = getRowY(start, tr);
 			}
 		}
@@ -458,70 +443,80 @@ mxGraphView.prototype.updateFloatingTerminalPoint = function (edge, start, end, 
 		// Updates the vertical position of the nearest point if we're not
 		// dealing with a connection preview, in which case either the
 		// edgeState or the absolutePoints are null
-		if (edge != null && edge.absolutePoints != null) {
+		if (edge != null && edge.absolutePoints != null)
+		{
 			next.y = y;
 		}
 	}
 
 	edge.setAbsoluteTerminalPoint(new mxPoint(x, y), source);
-
+	
 	// Routes multiple incoming edges along common waypoints if
 	// the edges have a common target row
-	if (source && mxUtils.isNode(edge.cell.value) && start != null && end != null) {
+	if (source && mxUtils.isNode(edge.cell.value) && start != null && end != null)
+	{
 		var edges = this.graph.getEdgesBetween(start.cell, end.cell, true);
 		var tmp = [];
 
 		// Filters the edges with the same source row
 		var row = edge.cell.value.getAttribute('targetRow');
-
-		for (var i = 0; i < edges.length; i++) {
-			if (mxUtils.isNode(edges[i].value) && edges[i].value.getAttribute('targetRow') == row) {
+		
+		for (var i = 0; i < edges.length; i++)
+		{
+			if (mxUtils.isNode(edges[i].value) &&
+				edges[i].value.getAttribute('targetRow') == row)
+			{
 				tmp.push(edges[i]);
 			}
 		}
 
 		edges = tmp;
 
-		if (edges.length > 1 && edge.cell == edges[edges.length - 1]) {
+		if (edges.length > 1 && edge.cell == edges[edges.length - 1])
+		{
 			// Finds the vertical center
 			var states = [];
 			var y = 0;
-
-			for (var i = 0; i < edges.length; i++) {
+			
+			for (var i = 0; i < edges.length; i++)
+		    {
 				states[i] = this.getState(edges[i]);
-				y += states[i].absolutePoints[0].y;
-			}
-
-			y /= edges.length;
-
-			for (var i = 0; i < states.length; i++) {
+		   		y += states[i].absolutePoints[0].y;
+		    }
+		    
+		    y /= edges.length;
+			
+		    for (var i = 0; i < states.length; i++)
+		    {
 				var x = states[i].absolutePoints[1].x;
 
-				if (states[i].absolutePoints.length < 5) {
+				if (states[i].absolutePoints.length < 5)
+				{
 					states[i].absolutePoints.splice(2, 0, new mxPoint(x, y));
-				} else {
+				}
+				else
+				{
 					states[i].absolutePoints[2] = new mxPoint(x, y);
 				}
-
+					
 				// Must redraw the previous edges with the changed point
-				if (i < states.length - 1) {
+				if (i < states.length - 1)
+				{
 					this.graph.cellRenderer.redraw(states[i]);
 				}
-			}
+		    }
 		}
 	}
 };
 
 // Defines global helper function to get y-coordinate for a given cell state and row
-var getRowY = function getRowY(state, tr) {
+var getRowY = function(state, tr)
+{
 	var s = state.view.scale;
 	var div = tr.parentNode.parentNode.parentNode;
 	var offsetTop = parseInt(div.style.top);
 	var y = state.y + (tr.offsetTop + tr.offsetHeight / 2 - div.scrollTop + offsetTop) * s;
 	y = Math.min(state.y + state.height, Math.max(state.y + offsetTop * s, y));
-
+	
 	return y;
 };
-
-/***/ })
-/******/ ]);

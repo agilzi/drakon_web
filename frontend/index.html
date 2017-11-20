@@ -1,10 +1,20 @@
 <html>
   <head>
-  </head>
-  <body>
-    <p>
-      Hello webpack 2
-    </p>
+  
+  <!-- Sets the basepath for the library if not in same directory -->
+	
+	
+    <script type="text/javascript" src="lib/mxgraph/mxClient.js"></script>
     <script src="./dist/bundle.js"></script>
-  </body>
+    
+
+  </head>
+<!-- Page passes the container for the graph to the program -->
+<body>
+
+	<!-- Creates a container for the graph with a grid wallpaper. Width, height and cursor in the style are for IE only -->
+	<div id="graphContainer"
+		style="cursor:default;position:absolute;top:30px;left:0px;bottom:0px;right:0px;background:url('editors/images/grid.gif')">
+	</div>
+</body>
 </html>
